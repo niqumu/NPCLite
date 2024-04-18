@@ -1,0 +1,7 @@
+name: NPCLite
+version: '${project.version}'
+main: dev.niqumu.npclite.NPCLite
+commands:
+  npc:
+    description: Configure NPCs and the NPCLite plugin
+    permission: op
