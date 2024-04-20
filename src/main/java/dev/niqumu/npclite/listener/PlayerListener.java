@@ -10,6 +10,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
+
+		// Spawn all NPCs for the player, as long as they're in the correct world
 		NPCLite.getInstance().getNpcManager().getNpcs().values().forEach(npc -> {
 			if (npc.getLocation().getWorld().equals(event.getPlayer().getWorld())) {
 				npc.spawn(event.getPlayer());
@@ -19,7 +21,11 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
+
+		// Spawn all NPCs for the player, as long as they're in the (new) correct world
 		NPCLite.getInstance().getNpcManager().getNpcs().values().forEach(npc -> {
+
+			// Remove all NPCs first
 			npc.remove(event.getPlayer());
 
 			if (npc.getLocation().getWorld().equals(event.getTo().getWorld())) {

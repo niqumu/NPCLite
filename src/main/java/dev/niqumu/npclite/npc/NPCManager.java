@@ -21,6 +21,11 @@ public class NPCManager {
 	@Getter
 	private final Map<String, String> selectedNpcs = new ConcurrentHashMap<>();
 
+	/**
+	 * Creates a new NPC at the specified location and spawns it for all players
+	 * @param name The name of the NPC to be created
+	 * @param location The location to create the NPC at
+	 */
 	public void add(String name, Location location) {
 		NPC npc = new NPC(name, location);
 		npc.spawnAll();
@@ -28,6 +33,10 @@ public class NPCManager {
 		this.npcs.put(name, npc);
 	}
 
+	/**
+	 * Removes the specified NPC and de-spawns it for all players
+	 * @param name The name of the NPC to be removed
+	 */
 	public void remove(String name) {
 		NPC npc = this.getNpcs().get(name);
 		npc.removeAll();
@@ -42,7 +51,7 @@ public class NPCManager {
 	public NPC getSelectedNPC(Player player) {
 
 		if (!this.selectedNpcs.containsKey(player.getName())) {
-			return null;
+			return null; // The player doesn't have an NPC selected
 		}
 
 		String selectedNPCName = this.selectedNpcs.get(player.getName());

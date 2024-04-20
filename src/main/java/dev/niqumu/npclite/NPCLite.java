@@ -30,11 +30,6 @@ public final class NPCLite extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 	}
 
-	@Override
-	public void onDisable() {
-		// Plugin shutdown logic
-	}
-
 	public static NPCLite getInstance() {
 		return instance;
 	}

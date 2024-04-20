@@ -42,6 +42,8 @@ public class NPCCommand implements CommandExecutor {
 			}
 		}
 
+		sender.sendMessage(ChatColor.RED + "Unrecognized option \"" + args[0] + "\"! " +
+			"Try add, edit, list, remove, or select.");
 		return false;
 	}
 
@@ -101,8 +103,28 @@ public class NPCCommand implements CommandExecutor {
 					"\" to your current location!");
 				return true;
 			}
+			case "rename": {
+
+				// Make sure the sender provided a new name
+				if (args.length < 3) {
+					sender.sendMessage(ChatColor.RED + "You must specify a new " +
+						"display name for \"" + selectedNPC.getName() + "\"");
+					return false;
+				}
+
+				String displayName = args[2].replace('&', ChatColor.COLOR_CHAR);
+				selectedNPC.setDisplayName(displayName);
+				selectedNPC.refresh();
+
+				sender.sendMessage(ChatColor.GREEN + "Set \"" + selectedNPC.getName() +
+					"\"'s display name to \"" + displayName + ChatColor.GREEN + "\"!");
+
+				return true;
+			}
 		}
 
+		sender.sendMessage(ChatColor.RED + "Unrecognized edit operation \"" + args[1] + "\"! " +
+			"Try move, or rename.");
 		return false;
 	}
 
@@ -177,6 +199,6 @@ public class NPCCommand implements CommandExecutor {
 
 	private void sendLine(CommandSender sender) {
 		sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH +
-			"---------------------------------------------------------");
+			"--------------------------------------------");
 	}
 }

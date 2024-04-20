@@ -84,8 +84,11 @@ public class NPC {
 		// Spawn the physical NPC
 		con.sendPacket(new PacketPlayOutNamedEntitySpawn(this.entity));
 
-		// Rotate the physical NPC (not sure why this is needed, but it is)
+		// Rotate the physical NPC
 		con.sendPacket(new PacketPlayOutEntityHeadRotation(this.entity, (byte) (this.entity.yaw * 256 / 360)));
+
+		// Remove the NPC from the player list (tab)
+		con.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, this.entity));
 	}
 
 	/**
@@ -104,8 +107,5 @@ public class NPC {
 
 		// Remove the physical NPC
 		con.sendPacket(new PacketPlayOutEntityDestroy(this.entity.getId()));
-
-		// Remove the NPC from the player list (tab)
-		con.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, this.entity));
 	}
 }
