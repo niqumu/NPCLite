@@ -1,6 +1,7 @@
 package dev.niqumu.npclite.npc;
 
 import com.mojang.authlib.GameProfile;
+import dev.niqumu.npclite.api.event.NPCClickEvent;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.*;
@@ -33,6 +34,10 @@ public class NPC {
 	@Getter @Setter
 	private String displayName;
 
+	/**
+	 * The entity of this NPC; this NPC's real, physical, in game representation
+	 */
+	@Getter
 	private EntityPlayer entity;
 
 	public NPC(String name, Location location) {
@@ -107,5 +112,9 @@ public class NPC {
 
 		// Remove the physical NPC
 		con.sendPacket(new PacketPlayOutEntityDestroy(this.entity.getId()));
+	}
+
+	public void handleClick(NPCClickEvent event) {
+		event.getPlayer().sendMessage(this.name);
 	}
 }

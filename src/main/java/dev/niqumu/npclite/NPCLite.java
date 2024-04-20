@@ -2,6 +2,7 @@ package dev.niqumu.npclite;
 
 import dev.niqumu.npclite.command.NPCCommand;
 import dev.niqumu.npclite.listener.PlayerListener;
+import dev.niqumu.npclite.network.NetworkManager;
 import dev.niqumu.npclite.npc.NPCManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -17,11 +18,15 @@ public final class NPCLite extends JavaPlugin {
 	@Getter
 	private NPCManager npcManager;
 
+	@Getter
+	private NetworkManager networkManager;
+
 	@Override
 	public void onEnable() {
 		NPCLite.instance = this;
 
 		this.npcManager = new NPCManager();
+		this.networkManager = new NetworkManager();
 
 		// Register the /npc command
 		this.getCommand("npc").setExecutor(new NPCCommand());

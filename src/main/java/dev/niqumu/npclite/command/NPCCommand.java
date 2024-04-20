@@ -113,6 +113,14 @@ public class NPCCommand implements CommandExecutor {
 				}
 
 				String displayName = args[2].replace('&', ChatColor.COLOR_CHAR);
+
+				// Make sure the new name isn't too long
+				if (displayName.length() > 16) {
+					sender.sendMessage(ChatColor.RED + "Due to limitations in Minecraft 1.8, " +
+						"the display name must be no more than 16 characters.");
+					return false;
+				}
+
 				selectedNPC.setDisplayName(displayName);
 				selectedNPC.refresh();
 
